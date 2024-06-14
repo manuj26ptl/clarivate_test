@@ -8,8 +8,16 @@
   <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
 
+
   <!-- Bootstrap CSS -->
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <% if user_signed_in? %>
+    <div class="alert-dark input-group-prepend">
+      <%= link_to 'Home', root_path,class: 'btn btn-primary' %>
+      <%= button_to "Sign out", destroy_user_session_path, method: :delete, class: 'btn btn-danger' %> 
+    </div>
+  <%end%>
+
 </head>
 
 <body>

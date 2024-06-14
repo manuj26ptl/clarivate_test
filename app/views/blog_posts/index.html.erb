@@ -1,0 +1,43 @@
+<% if user_signed_in? %>
+  <h1 class="alert-warning text-center">WELLCOME TO BLOG APP, <%= current_user.email %>!</h1>
+  <p style="color: green"><%= notice %></p>
+  <h1>Blog Posts</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Content</th>
+        <th>Image</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @blog_posts.each do |blog_post| %>
+        <tr id="<%= dom_id(blog_post) %>">
+          <td><%= blog_post.title %></td>
+          <td><%= truncate(blog_post.content, length: 100) %></td>
+          <td style="background-image: url('<%= blog_post.image %>'); background-size: cover; width: 150px; height: 100px;"></td>
+          <td class="input-group-text">
+            <%= link_to 'Show', blog_post, class: 'btn btn-primary' %> 
+            <% if blog_post.user_id == current_user.id %>
+              <%= link_to 'Edit', edit_blog_post_path(blog_post), class: 'btn btn-warning' %> 
+
+              <%= button_to 'Destroy', blog_post, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+            <% end %>
+            
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <%= link_to 'New Blog Post', new_blog_post_path,class: 'btn btn-primary' %>
+
+<% else %>
+  <%= link_to 'Login', new_user_session_path, class: 'btn btn-primary' %>
+  <%= link_to 'Sign Up', new_user_registration_path, class: 'btn btn-secondary' %>
+<% end %>
+
+
+
+
